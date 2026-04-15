@@ -1,7 +1,16 @@
 <script lang="ts" setup>
 import { RouterLink } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { ref } from 'vue'
 import { ChevronRight, Handbag, House, UserPen, PackageSearch, ChartLine, Cog } from '@lucide/vue';
+
+const route = useRoute()
+
+const isMenuActive = (basePath: string) => {
+    const currentPath = route.path.toLowerCase()
+    const normalizedBase = basePath.toLowerCase()
+    return currentPath === normalizedBase || currentPath.startsWith(`${normalizedBase}/`)
+}
 
 const expandedMenus = ref<Record<number, boolean>>({
     0: false,
@@ -35,20 +44,22 @@ const toggleSidebar = () => {
         <div class="navbar-content">
             <div class="navbar-menu">
                 <div class="option_menu">
-                    <div class="representative_ico" @click="toggleSidebar" title="Inicio">
-                        <House color="#ffffff" />
+                    <div class="representative_ico" :class="{ 'active-route': isMenuActive('/app/home') }"
+                        @click="toggleSidebar" title="Inicio">
+                        <House :color="isMenuActive('/app/home') ? '#086fb6' : '#ffffff'" />
                     </div>
                     <Transition name="menu-fade">
-                        <RouterLink v-show="isSidebarExpanded" to="/inicio" class="nav-link" name="Inicio">Inicio
+                        <RouterLink v-show="isSidebarExpanded" to="/app/home" class="nav-link" name="Inicio">Inicio
                         </RouterLink>
                     </Transition>
                 </div>
                 <div class="option_menu">
-                    <div class="representative_ico" @click="toggleSidebar" title="Pedidos">
-                        <Handbag color="#ffffff" />
+                    <div class="representative_ico" :class="{ 'active-route': isMenuActive('/app/pedidos') }"
+                        @click="toggleSidebar" title="Pedidos">
+                        <Handbag :color="isMenuActive('/app/pedidos') ? '#086fb6' : '#ffffff'" />
                     </div>
                     <Transition name="menu-fade">
-                        <RouterLink v-show="isSidebarExpanded" to="/pedidos" class="nav-link">Pedidos</RouterLink>
+                        <RouterLink v-show="isSidebarExpanded" to="/app/pedidos" class="nav-link">Pedidos</RouterLink>
                     </Transition>
                     <Transition name="menu-fade">
                         <div v-show="isSidebarExpanded" class="arrow" :class="{ rotated: expandedMenus[1] }"
@@ -60,23 +71,24 @@ const toggleSidebar = () => {
                     <Transition name="submenu">
                         <ul class="bread_option" v-show="expandedMenus[1]">
                             <li>
-                                <RouterLink to="/pedidos" class="nav-link">Sub Opción 1</RouterLink>
+                                <RouterLink to="/app/pedidos" class="nav-link">Sub Opción 1</RouterLink>
                             </li>
                             <li>
-                                <RouterLink to="/pedidos/Tea" class="nav-link">Sub Opción 2</RouterLink>
+                                <RouterLink to="/app/pedidos" class="nav-link">Sub Opción 2</RouterLink>
                             </li>
                             <li>
-                                <RouterLink to="/pedidos/Milk" class="nav-link">Sub Opción 3</RouterLink>
+                                <RouterLink to="/app/pedidos" class="nav-link">Sub Opción 3</RouterLink>
                             </li>
                         </ul>
                     </Transition>
                 </div>
                 <div class="option_menu">
-                    <div class="representative_ico" @click="toggleSidebar" title="Clientes">
-                        <UserPen color="#ffffff" />
+                    <div class="representative_ico" :class="{ 'active-route': isMenuActive('/app/clientes') }"
+                        @click="toggleSidebar" title="Clientes">
+                        <UserPen :color="isMenuActive('/app/clientes') ? '#086fb6' : '#ffffff'" />
                     </div>
                     <Transition name="menu-fade">
-                        <RouterLink v-show="isSidebarExpanded" to="/clientes" class="nav-link">Clientes</RouterLink>
+                        <RouterLink v-show="isSidebarExpanded" to="/app/clientes" class="nav-link">Clientes</RouterLink>
                     </Transition>
                     <Transition name="menu-fade">
                         <div v-show="isSidebarExpanded" class="arrow" :class="{ rotated: expandedMenus[2] }"
@@ -87,23 +99,25 @@ const toggleSidebar = () => {
                     <Transition name="submenu">
                         <ul class="bread_option" v-show="expandedMenus[2]">
                             <li>
-                                <RouterLink to="/clientes/Coffee" class="nav-link">Sub Opción 1</RouterLink>
+                                <RouterLink to="/app/clientes" class="nav-link">Sub Opción 1</RouterLink>
                             </li>
                             <li>
-                                <RouterLink to="/clientes/Tea" class="nav-link">Sub Opción 2</RouterLink>
+                                <RouterLink to="/app/clientes" class="nav-link">Sub Opción 2</RouterLink>
                             </li>
                             <li>
-                                <RouterLink to="/clientes/Milk" class="nav-link">Sub Opción 3</RouterLink>
+                                <RouterLink to="/app/clientes" class="nav-link">Sub Opción 3</RouterLink>
                             </li>
                         </ul>
                     </Transition>
                 </div>
                 <div class="option_menu">
-                    <div class="representative_ico" @click="toggleSidebar" title="Productos">
-                        <PackageSearch color="#ffffff" />
+                    <div class="representative_ico" :class="{ 'active-route': isMenuActive('/app/productos') }"
+                        @click="toggleSidebar" title="Productos">
+                        <PackageSearch :color="isMenuActive('/app/productos') ? '#086fb6' : '#ffffff'" />
                     </div>
                     <Transition name="menu-fade">
-                        <RouterLink v-show="isSidebarExpanded" to="/productos" class="nav-link">Productos</RouterLink>
+                        <RouterLink v-show="isSidebarExpanded" to="/app/productos" class="nav-link">Productos
+                        </RouterLink>
                     </Transition>
                     <Transition name="menu-fade">
                         <div v-show="isSidebarExpanded" class="arrow" :class="{ rotated: expandedMenus[3] }"
@@ -114,23 +128,24 @@ const toggleSidebar = () => {
                     <Transition name="submenu">
                         <ul class="bread_option" v-show="expandedMenus[3]">
                             <li>
-                                <RouterLink to="/productos/Coffee" class="nav-link">Sub Opción 1</RouterLink>
+                                <RouterLink to="/app/productos" class="nav-link">Sub Opción 1</RouterLink>
                             </li>
                             <li>
-                                <RouterLink to="/productos/Tea" class="nav-link">Sub Opción 2</RouterLink>
+                                <RouterLink to="/app/productos" class="nav-link">Sub Opción 2</RouterLink>
                             </li>
                             <li>
-                                <RouterLink to="/productos/Milk" class="nav-link">Sub Opción 3</RouterLink>
+                                <RouterLink to="/app/productos" class="nav-link">Sub Opción 3</RouterLink>
                             </li>
                         </ul>
                     </Transition>
                 </div>
                 <div class="option_menu">
-                    <div class="representative_ico" @click="toggleSidebar" title="Reportes">
-                        <ChartLine color="#ffffff" />
+                    <div class="representative_ico" :class="{ 'active-route': isMenuActive('/app/reportes') }"
+                        @click="toggleSidebar" title="Reportes">
+                        <ChartLine :color="isMenuActive('/app/reportes') ? '#086fb6' : '#ffffff'" />
                     </div>
                     <Transition name="menu-fade">
-                        <RouterLink v-show="isSidebarExpanded" to="/reportes" class="nav-link">Reportes</RouterLink>
+                        <RouterLink v-show="isSidebarExpanded" to="/app/reportes" class="nav-link">Reportes</RouterLink>
                     </Transition>
                     <Transition name="menu-fade">
                         <div v-show="isSidebarExpanded" class="arrow" :class="{ rotated: expandedMenus[4] }"
@@ -141,23 +156,25 @@ const toggleSidebar = () => {
                     <Transition name="submenu">
                         <ul class="bread_option" v-show="expandedMenus[4]">
                             <li>
-                                <RouterLink to="/reportes/Coffee" class="nav-link">Sub Opción 1</RouterLink>
+                                <RouterLink to="/app/reportes" class="nav-link">Sub Opción 1</RouterLink>
                             </li>
                             <li>
-                                <RouterLink to="/reportes/Tea" class="nav-link">Sub Opción 2</RouterLink>
+                                <RouterLink to="/app/reportes" class="nav-link">Sub Opción 2</RouterLink>
                             </li>
                             <li>
-                                <RouterLink to="/reportes/Milk" class="nav-link">Sub Opción 3</RouterLink>
+                                <RouterLink to="/app/reportes" class="nav-link">Sub Opción 3</RouterLink>
                             </li>
                         </ul>
                     </Transition>
                 </div>
                 <div class="option_menu">
-                    <div class="representative_ico" @click="toggleSidebar" title="Configuración">
-                        <Cog color="#ffffff" />
+                    <div class="representative_ico" :class="{ 'active-route': isMenuActive('/app/conf') }"
+                        @click="toggleSidebar" title="Configuración">
+                        <Cog :color="isMenuActive('/app/conf') ? '#086fb6' : '#ffffff'" />
                     </div>
                     <Transition name="menu-fade">
-                        <RouterLink v-show="isSidebarExpanded" to="/conf" class="nav-link">Configuración</RouterLink>
+                        <RouterLink v-show="isSidebarExpanded" to="/app/conf" class="nav-link">Configuración
+                        </RouterLink>
                     </Transition>
                     <Transition name="menu-fade">
                         <div v-show="isSidebarExpanded" class="arrow" :class="{ rotated: expandedMenus[5] }"
@@ -168,13 +185,13 @@ const toggleSidebar = () => {
                     <Transition name="submenu">
                         <ul class="bread_option" v-show="expandedMenus[5]">
                             <li>
-                                <RouterLink to="/conf/Coffee" class="nav-link">Sub Opción 1</RouterLink>
+                                <RouterLink to="/app/conf" class="nav-link">Sub Opción 1</RouterLink>
                             </li>
                             <li>
-                                <RouterLink to="/conf/Tea" class="nav-link">Sub Opción 2</RouterLink>
+                                <RouterLink to="/app/conf" class="nav-link">Sub Opción 2</RouterLink>
                             </li>
                             <li>
-                                <RouterLink to="/conf/Milk" class="nav-link">Sub Opción 3</RouterLink>
+                                <RouterLink to="/app/conf" class="nav-link">Sub Opción 3</RouterLink>
                             </li>
                         </ul>
                     </Transition>
@@ -327,6 +344,11 @@ const toggleSidebar = () => {
     border-radius: 0.5rem;
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.35), 0 2px 8px rgba(15, 23, 42, 0.12);
     padding: 0.35rem;
+}
+
+.option_menu .representative_ico.active-route {
+    background-color: #ffffff;
+    border-color: #ffffff;
 }
 
 .option_menu .nav-link {

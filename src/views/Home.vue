@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { FileText, Package, UserPlus, PieChart, Tag, Users, Receipt, TrendingUp } from '@lucide/vue'
 
 const activeTab = ref('shortcuts')
+
 </script>
 <template>
     <div class="content-area">
@@ -109,8 +110,9 @@ const activeTab = ref('shortcuts')
 </template>
 <style scoped>
 .content-area {
-    padding: 1.5rem;
+    padding: 0;
     overflow: auto;
+    height: 100%;
 }
 
 .content-section {
