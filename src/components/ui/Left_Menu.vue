@@ -128,13 +128,14 @@ const toggleSidebar = () => {
                     <Transition name="submenu">
                         <ul class="bread_option" v-show="expandedMenus[3]">
                             <li>
-                                <RouterLink to="/app/productos" class="nav-link">Sub Opción 1</RouterLink>
+                                <RouterLink to="/app/productos/crear" class="nav-link">Crear Producto</RouterLink>
                             </li>
                             <li>
-                                <RouterLink to="/app/productos" class="nav-link">Sub Opción 2</RouterLink>
+                                <RouterLink to="/app/productos/inventario" class="nav-link">Inventario</RouterLink>
                             </li>
                             <li>
-                                <RouterLink to="/app/productos" class="nav-link">Sub Opción 3</RouterLink>
+                                <RouterLink to="/app/productos/gestion" class="nav-link">Gestión de Productos
+                                </RouterLink>
                             </li>
                         </ul>
                     </Transition>
